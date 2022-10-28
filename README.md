@@ -12,7 +12,7 @@
 
 ## Description
 
-Basically, this is a puzzle solving algorithm. The puzzle is a 3x3 grid of empty boxes, with another box at each of the interior vertices. Each box at each vertex contains a number. The puzzle is to fill in the empty boxes with the numbers 1-9 so that the numbers surrounding each vertex add up to the number in the vertex box.
+This is a puzzle solving algorithm. The puzzle is a 3x3 grid of empty boxes, with another box at each of the interior vertices. Each box at each vertex contains a number. The puzzle is to fill in the empty boxes with the numbers 1-9 so that the numbers surrounding each vertex add up to the number in the vertex box.
 
 ## Background
 
@@ -20,15 +20,29 @@ My son brought home a math puzzle once, and while it wasn't very difficult, I wo
 
 ## Algorithm
 
-The algorithm is actually quite more complicated than probably necessary. But I guess it has some purpose too.
+The algorithm is actually much more complicated than probably necessary. But I guess it has some purpose too.
 
-I basically went about trying to build the algorithm by thinking about how I would solve it, and turning that into computer code more or less. The main difference, however, is that a computer can hold a much bigger store of numbers in memory than a human can, and can also test and restest many different combinations. So the goal is to build upon those strengths. However, it is also imperative to not over extend the computers abilities and try to make the algorithm somewhat efficient, because eventually things scale beyond even the computers abilities.
+I basically went about trying to build the algorithm by thinking about how I would solve it, and turning that into computer code more or less. The main difference, however, is that a computer can hold a much bigger store of numbers in memory than a human can, and can also test and retest many different combinations. So the goal is to build upon those strengths. However, it is also imperative to not over extend the computers abilities and try to make the algorithm somewhat efficient, because eventually things scale beyond even the computer's abilities.
 
-There are four sections to the puzzle grid, each being a grouping of numbers surrounding the vertex sum. These sections overlap because every box except the corners is part of at least one other sum.
+Conceptually, there are four sections to the puzzle grid, each being a grouping of numbers surrounding the sum at the vertex. These sections overlap because every box except the corners is part of at least one other sum.
 
-First off, we can take advantage of the fact that we are working with a preset list of numbers that will eventually fill in the boxes, and not a non-deterinate set. So using these numbers, the program cycles through every combination of every set of numbers and builds a list of number combinations for each of the four sums. These combined lists are of course unordered so it not necessary to search through every permutation of the list of numbers, but only each set of numbers in no particular order. This algorithm is defined in the function MagicNumbers.get_combos().
+The steps are as follows:
 
-After the list of possible addend combos is calculated for each vertex sum, the sections are sorted according to the priority in which the sections should be tested for possible solutions. The section with the lowest number of possible sum combos is given starting priority. This is because it will be used the most often--as soon as an trial fails it will go to the next try.
+1. For each vertex sum, build a list of the fill-in numbers that add up to the sum and could be used to fill in that number.
+
+2. Start with the section with the least number of possible sum combinations. Cycling through each combo, begin testing each permutation for a possible solution. 
+
+3. Fill the numbers in the section with the combo numbers.
+
+4. Since this number shares only number from the opposite corner section, search that section for combos that contain the shared number and none of the other numbers. If any combinations are found, cycle through all permutations and fill in the section. If no combos are found, start over at step two with the next permutation.
+
+5. Repeat step four with the next two sections, backing out if no combos are found.
+
+6. A successful solution has been found if all four sections get filled in.
+
+First off, we can take advantage of the fact that we are working with a preset list of numbers that will eventually fill in the boxes, and not a indeterinate set. So using these numbers, the program cycles through every combination of every set of the fill-in numbers and builds a list of potential sets that add up to the four sums. These combined lists are of course unordered so it not necessary to search through every permutation of the list of numbers, but only each set of numbers in no particular order.
+
+After the list of possible addend combos is calculated for each vertex sum, the sections are sorted according to the priority in which the sections should be tested for possible solutions. The section with the lowest number of possible sum combos is given starting priority.
 
 Then, the opposing corner is tried because it will share the fewest numbers with the starting section. The third section shares numbers equally with the first two, so the section with the fewewst combinations is chosen next, and the finally the last section is added.
 
