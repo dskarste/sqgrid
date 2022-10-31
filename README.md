@@ -14,11 +14,15 @@
 
 This is a puzzle solving program. The puzzle is a 3x3 grid of empty boxes, with another box at each of the interior vertices. Each box at each vertex contains a number.
 
+<<<<<<< HEAD
 ![Sums puzzle](images/puzzle_sums.png)
 
 The puzzle is to fill in the empty boxes with the numbers 1-9 so that the numbers surrounding each vertex add up to the number in the vertex box.
 
 ![Sums puzzle solved](images/puzzle_sums_solved.png)
+=======
+## Algorithm
+>>>>>>> 712f305 (Edited README)
 
 ## Solution mechanism
 
