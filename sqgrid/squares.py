@@ -1,7 +1,5 @@
 from itertools import permutations
 
-#sums = [[17,25], [18,29]]
-
 class MagicGrid:
 	grid_size = [3,3]
 	grid = [[]]
@@ -208,7 +206,7 @@ class MagicNumbers:
 		self.guess_numbers(0)
 
 
-def do_with_classes(magic_sums):
+def main(magic_sums):
 
 	magic = MagicNumbers(MagicGrid())
 	magic.set_sums(magic_sums)
@@ -222,7 +220,10 @@ def do_with_classes(magic_sums):
 	magic.display()
 
 
+if __name__ == "__main__":
 
+    magic_sums = [17,25,18,29]
+    #magic_sums = [[17,25], [18,29]]
 
-magic_sums = [17,25,25,25]
-do_with_classes(magic_sums)
+    main(magic_sums)
+
