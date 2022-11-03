@@ -1,4 +1,4 @@
-from itertools import permutations
+from itertools import permutations, combinations
 
 class MagicGrid:
 	grid_size = [3,3]
@@ -96,19 +96,17 @@ class MagicNumbers:
 			self._four_numbers[i].sum = sums[i]
 
 	def get_section(self, coords):
-			for f in self._four_numbers:
-				if (f.section[0] == coords[0] and
-				     f.section[1] == coords[1]):
-					return f
+		for n in self._four_numbers:
+			if (n.section[0] == coords[0] and n.section[1] == coords[1]):
+				return n
 
 	def get_combos(self):
-		for i in range(0,len(self._four_numbers)):
-			for a in range(1,7):
-				for b in range(a+1,8):
-					for c in range(b+1,9):
-						for d in range(c+1,10):
-							if a+b+c+d == self._four_numbers[i].sum:
-								self._four_numbers[i].combos.append([a,b,c,d])
+		for c in combinations(range(1, 10), 4):
+			[
+                n.combos.append(c) \
+                for n in self._four_numbers \
+				if sum(c) == n.sum
+            ]
 
 	def sort_sections(self):
 		sorted_nums = []
@@ -182,7 +180,7 @@ class MagicNumbers:
 		#print(coords)
 
 		for c in combos:
-			for p in list(permutations(c)):
+			for p in permutations(c):
 
 				self.set_numbers_in_use(p)
 
