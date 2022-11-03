@@ -1,4 +1,5 @@
 from itertools import permutations, combinations
+import sys
 
 class MagicGrid:
 	grid_size = [3,3]
@@ -183,13 +184,13 @@ class MagicNumbers:
 			for p in permutations(c):
 
 				self.set_numbers_in_use(p)
-
 				self.set_numbers_in_grid(coords, p)
 
 				if (i+1) == len(self._four_numbers):
 					self._got_it = True
 				else:
 					self.guess_numbers(i+1)
+
 				if self._got_it:
 					return
 
@@ -203,6 +204,8 @@ class MagicNumbers:
 
 		self.guess_numbers(0)
 
+		return self._got_it
+
 
 def main(magic_sums):
 
@@ -211,17 +214,20 @@ def main(magic_sums):
 	magic.get_combos()
 	magic.sort_sections()
 
-	magic.do_your_magic()
+	success = magic.do_your_magic()
 
-	print('Final Result')
-	print(magic_sums)
-	magic.display()
+	if success == True:
+		print('Final Result')
+		print(magic_sums)
+		magic.display()
+	else:
+		print(f"Could not find solution for {magic_sums}")
 
 
 if __name__ == "__main__":
 
-    magic_sums = [17,25,18,29]
-    #magic_sums = [[17,25], [18,29]]
+    #magic_sums = [17,25,18,29]
+	magic_sums = [int(i) for i in sys.argv[1:5]]
 
-    main(magic_sums)
+	main(magic_sums)
 
