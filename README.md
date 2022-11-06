@@ -31,10 +31,15 @@ After the combos are determined for each vertex sum, the are tried in different 
 One note, there are actually many solutions to each puzzle.
 
 
-## Installation
+## Execution
 
 ```console
-pip install sqgrid
+python sqgrid n1 n2 n3 n4
+```
+
+Example
+```console
+python sqgrid n1 n2 n3 n4
 ```
 
 ## License
