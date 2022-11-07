@@ -60,14 +60,6 @@ class MagicGrid:
 
         print(grid)
 
-    def display_old(self):
-        print('-' * 20)
-        print('     '.join(['|'] * 4))
-        print(' |  '.join(['','a','b','c','']))
-        for i in range(self.grid_size[0]):
-            print(self.grid[i])
-        self.display_new()
-
     def set_numbers(self, coords, numbers):
         for i in range(len(coords)):
             c = coords[i]
@@ -191,11 +183,6 @@ class MagicNumbers:
 
         cant_haves = [n for n in range(len(self._numbers)) if self._numbers[n] == 1]
 
-        #print(self._four_numbers[i].grid_numbers)
-        #print(self._four_numbers[i].combos)
-        #print(must_haves)
-        #print(cant_haves)
-
         for c in self._four_numbers[i].combos:
             if ((set(must_haves).issubset(c)) and
                 (not any(elem in c for elem in cant_haves))):
@@ -219,14 +206,9 @@ class MagicNumbers:
 
     def guess_numbers(self, i):
 
-        #print(i)
-
         section = self._four_numbers[i]
-        #print(section.sum)
         combos = self.filter_combos(i)
-        #print(combos)
         coords = self.filter_coords(section.grid_numbers)
-        #print(coords)
 
         for c in combos:
             for p in permutations(c):
@@ -269,13 +251,23 @@ def main(magic_sums):
     else:
         print(f"Could not find solution for {magic_sums}")
 
+def usage():
+    return f"Usage: {sys.argv[0]} n1 n2 n3 n4"
 
 if __name__ == "__main__":
 
-    magic_sums = [int(i) for i in sys.argv[1:5]]
+    try:
+        magic_sums = [int(i) for i in sys.argv[1:5]]
+    except ValueError:
+        print(f"squares: {' '.join(sys.argv[1:])}: Not all arguments are numbers")
+        exit(1)
+
+    if len(magic_sums) < 4:
+        print(f"squares: {' '.join(sys.argv[1:])}: Wrong number of arguments")
+        exit(1)
 
     if len(magic_sums) == 0:
+        print()
+        print("Using numbers: [17,25,18,29]")
         magic_sums = [17,25,18,29]
-
-    main(magic_sums)
 
