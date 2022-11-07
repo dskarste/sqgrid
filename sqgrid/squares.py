@@ -262,12 +262,13 @@ if __name__ == "__main__":
         print(f"squares: {' '.join(sys.argv[1:])}: Not all arguments are numbers")
         exit(1)
 
-    if len(magic_sums) < 4:
-        print(f"squares: {' '.join(sys.argv[1:])}: Wrong number of arguments")
-        exit(1)
-
     if len(magic_sums) == 0:
         print()
         print("Using numbers: [17,25,18,29]")
         magic_sums = [17,25,18,29]
 
+    if len(magic_sums) < 4:
+        print(f"squares: {' '.join(sys.argv[1:])}: Wrong number of arguments")
+        exit(1)
+
+    main(magic_sums)
